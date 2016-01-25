@@ -18,4 +18,20 @@ heroku config:set DATABASE_URL=<staging database url>
 heroku config:set OCD_DIVISION_CSV=../country-ca-toronto.csv
 heroku addons:create scheduler
 heroku addons:open scheduler
-# Add `cd scrapers && pupa update ca_on_toronto events-incremental`
+```
+
+From the page openned above, we add this scheduled command to run
+nightly during off-hours in Toronto:
+
+    cd scrapers && pupa update ca_on_toronto people committees events-incremental
+
+If at any point we want to blow away the database and start from
+scratch:
+
+```
+# Drop all tables in the database and repopulate divisions table
+heroku run 'cd scrapers && pupa dbinit --reset ca'
+
+# Manually re-run until scheduler takes over
+heroku run 'cd scrapers && pupa update ca_on_toronto people committees events-incremental'
+```
