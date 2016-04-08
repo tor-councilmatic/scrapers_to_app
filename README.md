@@ -10,6 +10,17 @@ branch](https://github.com/patcon/scrapers-ca/tree/test/eventagendaitem-classifi
 The app is hosted at https://scrapers-to.herokuapp.com, but since the
 magic happens in the scheduled task, there's not much to look at.
 
+### Local
+
+mkvirtualenv opencivicdata-ca --python=`python3`
+workon opencivicdata-ca
+cd scrapers && make pip-install
+cd ..
+make pupa-update people committees events-incremental
+```
+
+### Heroku
+
 For posterity, this is the setup that was required on Heroku to get this
 working:
 
