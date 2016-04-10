@@ -34,7 +34,7 @@ heroku addons:open scheduler
 From the page openned above, we add this scheduled command to run
 nightly during off-hours in Toronto:
 
-    cd scrapers && pupa update ca_on_toronto people committees events-incremental
+    make pupa-update people committees events-incremental bills-incremental
 
 If at any point we want to blow away the database and start from
 scratch:
@@ -44,5 +44,11 @@ scratch:
 heroku run 'cd scrapers && pupa dbinit --reset ca'
 
 # Manually re-run until scheduler takes over
-heroku run 'cd scrapers && pupa update ca_on_toronto people committees events-incremental'
+heroku run make pupa-update people committees events-incremental bills-incremental
 ```
+
+### Notes
+
+* We can't auto-deploy this app from GitHub due to it's use of
+  submodules, [which are not
+supported](https://devcenter.heroku.com/articles/github-integration#git-submodules).
