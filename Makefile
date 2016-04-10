@@ -1,5 +1,9 @@
 pupa-update: export OCD_DIVISION_CSV=../country-ca-toronto.csv
 pupa-update: ## Runs `pupa update ca_on_toronto`
+	cd scrapers && pupa update ca_on_toronto $(filter-out $@,$(MAKECMDGOALS))
+
+pupa-update-fast: export OCD_DIVISION_CSV=../country-ca-toronto.csv
+pupa-update-fast: ## Runs `pupa update ca_on_toronto` without rate-limits (only use when cached)
 	cd scrapers && pupa update --fastmode ca_on_toronto $(filter-out $@,$(MAKECMDGOALS))
 
 %:
