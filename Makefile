@@ -1,3 +1,7 @@
+pupa-initdb: export OCD_DIVISION_CSV=../country-ca-toronto.csv
+pupa-initdb: ## Runs `pupa update ca_on_toronto`
+	cd scrapers && pupa initdb --reset ca
+
 pupa-update: export OCD_DIVISION_CSV=../country-ca-toronto.csv
 pupa-update: ## Runs `pupa update ca_on_toronto`
 	cd scrapers && pupa update ca_on_toronto $(filter-out $@,$(MAKECMDGOALS))
