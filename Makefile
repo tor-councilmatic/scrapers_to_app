@@ -14,6 +14,12 @@ pupa-update-events: export OCD_DIVISION_CSV=../country-ca-toronto.csv
 pupa-update-events: ## Runs `pupa update ca_on_toronto events-full`
 	cd scrapers && pupa update ca_on_toronto events-full
 
+weekly-pupa-update-events: export OCD_DIVISION_CSV=../country-ca-toronto.csv
+weekly-pupa-update-events: ## Runs `pupa update ca_on_toronto events-full` only on Sunday
+ifeq ($(shell date +%A ), Sunday)
+	cd scrapers && pupa update ca_on_toronto events-full
+endif
+
 mark-cancelled-events: pupa-update-events ## Mark non-updated events (+1hr) as cancelled
 	psql $(DATEBASE_URL) -c "UPDATE opencivicdata_event SET status='cancelled' WHERE updated_at < current_date - interval '1' hour"
 
