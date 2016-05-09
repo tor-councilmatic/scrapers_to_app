@@ -21,7 +21,7 @@ ifeq ($(shell date +%A ), Sunday)
 endif
 
 mark-cancelled-events: pupa-update-events ## Mark non-updated events (+1hr) as cancelled
-	psql $(DATEBASE_URL) -c "UPDATE opencivicdata_event SET status='cancelled' WHERE updated_at < current_date - interval '1' hour"
+	psql $(DATEBASE_URL) -c "UPDATE opencivicdata_event SET status='cancelled' WHERE (updated_at < current_timestamp - interval '30' minute)"
 
 %:
 	@true
