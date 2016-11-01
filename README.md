@@ -52,3 +52,10 @@ heroku run make pupa-update people committees events-incremental bills-increment
 * We can't auto-deploy this app from GitHub due to it's use of
   submodules, [which are not
 supported](https://devcenter.heroku.com/articles/github-integration#git-submodules).
+* Agendas (and therefore agenda items) are publicized throughout the day
+  when they are ready. However, the agenda item search index, is run as
+a scheduled task that should finish by 4am nightly. Since we use the
+search results page as a central piece of our Bill scraper, we must run
+this after 4am, or else the latest events will be scraped and have
+agendas attached, but these agenda items won't have full Bills scraped
+and available.
